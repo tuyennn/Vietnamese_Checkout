@@ -11,9 +11,8 @@ Facts
 
 Description
 -----------
-This extension provide 3-steps checkout which is popular in Vietnamese: 1- Login, Register; 2- Select Shipping Address or add new; 3- Select Shipping, Billing Method.
-It displays progress bar on top of checkout page,
-Extension was extended almost from magento onepage checkout
+This extension provide 3-steps checkout which is popular in Vietnam: 1- Login, Register; 2- Select Shipping Address or add new; 3- Select Shipping, Billing Method.
+It displays progress bar on top of checkout page, extension was extended almost from magento onepage checkout
 
 
 This extension have autoshipping function which folk from [IntegerNet_Autoshipping](https://github.com/integer-net/Autoshipping).
