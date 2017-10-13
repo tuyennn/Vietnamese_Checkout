@@ -1,6 +1,5 @@
 # GhoSter Vietnamese Checkout - Magento 1
 ---
-=====================
 Allows vietnamese customer checkout in magento site with 3 steps
 
 Facts
