@@ -1,0 +1,28 @@
+<form id="co-shipping-payment-method-form" action="">
+    <?php echo $this->getChildHtml('shipping_method') ?>
+    <?php echo $this->getChildHtml('payment') ?>
+
+    <div class="bx-btn">
+        <button id="shipping_payment-buttons-container" type="button" class="button btn-checkout" onclick="shippingPayment.save()"><span><span><?php echo $this->helper('checkout')->__('Place Order') ?></span></span></button>
+        <span class="please-wait" id="shipping_payment-please-wait" style="display:none;">
+            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" alt="<?php echo Mage::helper('core')->quoteEscape($this->__('Submitting order information...')) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Submitting order information...')) ?>" class="v-middle" /> <?php echo $this->__('Submitting order information...') ?>
+        </span>
+    </div>
+</form>
+
+
+<div class="address-cart-item">
+    <div class="billing-address">
+        <div class="block-title">
+            <h4><?php echo $this->__('Billing Address')?></h4>
+            <a href="javascript:void(0);" onclick="goToBillingStep();"><?php echo $this->__('Edit')?></a>
+        </div>
+        <div class="block-content">
+            <?php echo $this->getChildHtml('address') ?>
+        </div>
+    </div>
+    <div class="opc-item opc-item-order">
+        <?php echo $this->getChildHtml('ghoster.cart.info')?>
+    </div>
+</div>
+

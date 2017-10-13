@@ -1,0 +1,14 @@
+<div class="title-opc title-step3">
+    <h1><?php echo $this->__('3. Shipping, Payment and Purchase');?></h1>
+</div>
+
+<div class="checkout-shipping-method">
+    <h4><?php echo $this->__('Select Shipping Method')?></h4>
+    <div id="checkout-shipping-method-load" class="step-content">
+        <?php echo $this->getChildHtml('available') ?>
+    </div>
+
+    <div id="onepage-checkout-shipping-method-additional-load">
+        <?php echo $this->getChildHtml('additional') ?>
+    </div>
+</div>

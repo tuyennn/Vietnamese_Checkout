@@ -1,0 +1,178 @@
+<?php
+/** @var $this Mage_Checkout_Block_Onepage_Login */
+?>
+<div class="title-opc title-step1">
+    <h1><?php echo $this->__('1. New Customer/Guest') ;?></h1>
+</div>
+<div class="opc-content opc-step1-content">
+    <div class="opc-item opc-item-user">
+        <ul class="title-list">
+            <li  class="control active">
+                <input type="hidden" name="checkout_method" id="login:guest" value="guest"<?php if($this->getQuote()->getCheckoutMethod()==Mage_Checkout_Model_Type_Onepage::METHOD_GUEST): ?> checked="checked"<?php endif; ?> class="radio" />
+                <label onclick="showCustomerForm('login-form',this);" for="login:guest">
+                    <?php echo $this->__('Login') ?>
+                    <span><?php echo $this->__('Already Registered User') ?></span>
+                </label>
+            </li>
+            <li class="control">
+                <input type="hidden" name="checkout_method" id="login:register" value="register"<?php if($this->getQuote()->getCheckoutMethod()==Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER || !$this->getQuote()->isAllowedGuestCheckout()): ?> checked="checked"<?php endif ?> class="radio" />
+                <label onclick="showCustomerForm('register-form',this);" for="login:register">
+                    <?php echo $this->__('Register') ?>
+                    <span><?php echo $this->__('Guest Customer') ?></span>
+                </label>
+            </li>
+        </ul>
+
+        <div id="login-form" class="active customter-form">
+            <?php echo $this->getMessagesBlock()->toHtml() ?>
+            <form id="login-form" action="<?php echo $this->getPostAction() ?>" method="post">
+                <fieldset>
+                    <?php echo $this->getBlockHtml('formkey'); ?>
+                    <ul class="form-list">
+                        <li class="fields field-1col">
+                            <div class="field">
+                                <label for="login-email" class="required"><?php echo $this->__('Email') ?></label>
+                                <div class="input-box">
+                                    <input type="text" class="input-text required-entry validate-email" id="login-email" name="login[username]" value="<?php echo $this->escapeHtml($this->getUsername()) ?>" />
+                                </div>
+                            </div>
+                        </li>
+                        <li class="fields field-1col">
+                            <div class="field">
+                                <label for="login-password" class="required"><?php echo $this->__('Password') ?></label>
+                                <div class="input-box">
+                                    <input type="password" class="input-text required-entry" id="login-password" name="login[password]" />
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <input name="context" type="hidden" value="checkout" />
+                </fieldset>
+                <div class="action">
+                    <div class="forgot-pwd"><span><?php echo $this->__('Forgot Password? Recover it') ?></span><a href="<?php echo $this->getUrl('customer/account/forgotpassword') ?>" class="f-left"><?php echo $this->__('here') ?></a></div>
+                    <button type="submit" class="button" onclick="onepageLogin(this)"><span><span><?php echo $this->__('Login') ?></span></span></button>
+                </div>
+            </form>
+        </div>
+        <div id="register-form" class="customter-form" style="display: none">
+            <ul class="messages" style="display: none;"><li class="error-msg"><ul><li><span id="rg-messages"></span></li></ul></li></ul>
+            <form action="" method="post" id="registerForm">
+                <div class="fieldset">
+                    <input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
+                    <input type="hidden" name="error_url" value="<?php echo $this->getErrorUrl() ?>" />
+                    <input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+                    <ul class="form-list">
+                        <li class="fields field-1col">
+                            <div class="field">
+                                <label for="firstname" class="required"><?php echo $this->__('Firstname') ?></label>
+                                <div class="input-box">
+                                    <input type="text" name="firstname" id="firstname" value="" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Firstname')) ?>" class="input-text  required-entry" />
+                                </div>
+                            </div>
+                        </li>
+                        <li class="fields field-1col">
+                            <div class="field">
+                                <label for="lastname" class="required"><?php echo $this->__('Lastname') ?></label>
+                                <div class="input-box">
+                                    <input type="text" name="lastname" id="lastname" value="" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Lastname')) ?>" class="input-text  required-entry" />
+                                </div>
+                            </div>
+                        </li>
+                        <li class="fields field-1col">
+                            <div class="field">
+                                <label for="email_address" class="required"><?php echo $this->__('Email Address') ?></label>
+                                <div class="input-box">
+                                    <input type="text" name="email" id="email_address" value="" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Email Address')) ?>" class="input-text validate-email required-entry" />
+                                </div>
+                            </div>
+                        </li>
+                        <li class="fields field-1col">
+                            <div class="field">
+                                <label for="password" class="required"><?php echo $this->__('Password') ?></label>
+                                <div class="input-box">
+                                    <input type="password" name="password" id="password" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Password')) ?>" class="input-text required-entry validate-password" />
+                                </div>
+                            </div>
+                        </li>
+                        <li class="fields field-1col">
+                            <div class="field">
+                                <label for="confirmation" class="required"><?php echo $this->__('Confirm Password') ?></label>
+                                <div class="input-box">
+                                    <input type="password" name="confirmation" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Confirm Password')) ?>" id="confirmation" class="input-text required-entry validate-cpassword" />
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="action">
+                    <button id="bt-register" onclick="onepageRegister();" type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Submit')) ?>" class="button"><span><span><?php echo $this->__('Submit') ?></span></span></button>
+                </div>
+                <?php if (Mage::helper('checkout')->isContextCheckout()): ?>
+                    <input name="context" type="hidden" value="checkout" />
+                <?php endif; ?>
+            </form>
+        </div>
+        <script type="text/javascript">
+            //<![CDATA[
+            var registerForm = new VarienForm('registerForm', true);
+            function onepageRegister() {
+                if(registerForm.validator.validate()){
+                    var f = registerForm.form;
+                    jQuery.ajax({
+                        url: '<?php echo $this->getUrl('*/customer/createPost')?>',
+                        data: f.serialize(),
+                        type: 'post',
+                        dataType: 'json',
+                        beforeSend: function () {
+                            jQuery('#bt-register').attr('disabled','disabled').find('span span').html('loading...');
+                        },
+                        success:function (data) {
+                            jQuery('#bt-register span span').html('<?php echo $this->__('Submit') ?>').removeAttr('disabled');
+                            if(data.status=='0'){
+                                jQuery('ul.messages').show();
+                                jQuery('#rg-messages').html(data.message);
+                            } else {
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+                return false;
+            };
+            //]]>
+        </script>
+    </div>
+    <div class="opc-item opc-item-order">
+        <?php echo $this->getChildHtml('ghoster.cart.info')?>
+    </div>
+</div>
+<script type="text/javascript">
+
+    //<![CDATA[
+    var loginForm = new VarienForm('login-form', true);
+    $('login-email').observe('keypress', bindLoginPost);
+    $('login-password').observe('keypress', bindLoginPost);
+    function bindLoginPost(evt){
+        if (evt.keyCode == Event.KEY_RETURN) {
+            loginForm.submit();
+        }
+    }
+    function onepageLogin(button)
+    {
+        if(loginForm.validator && loginForm.validator.validate()){
+            button.disabled = true;
+            loginForm.submit();
+        }
+    }
+    function showCustomerForm(id, elm) {
+        if(!jQuery(elm).parent().hasClass('active')){
+            jQuery('li.control').removeClass('active');
+            jQuery(elm).parent().addClass('active');
+            jQuery('.customter-form').hide();
+            jQuery('#' + id).show();
+        }
+    }
+
+    //]]>
+
+</script>

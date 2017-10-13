@@ -1,0 +1,25 @@
+<div id="checkout-shipping-payment-load">
+    <?php /* @var $this GhoSter_VietnameseCheckout_Block_ShipAndPay */?>
+    <?php echo $this->getChildHtml('sp-form-data')?>
+</div>
+
+
+<script type="text/javascript">
+    //<![CDATA[
+    var shippingPayment = new shippingPaymentMethod('co-shipping-payment-method-form', "<?php echo $this->getUrl('checkout/onepage/saveShippingPaymentMethod') ?>");
+    var review = new Review('<?php echo $this->getUrl('checkout/onepage/saveOrder', array('form_key' => Mage::getSingleton('core/session')->getFormKey())) ?>', '<?php echo $this->getUrl('checkout/onepage/success') ?>', $('checkout-agreements'));
+    //]]>
+    function placeOrder(){
+        setTimeout(function(){
+            review.save();
+        },200);
+
+    }
+
+    function goToBillingStep(){
+        jQuery('#opc-billing').attr('class','section open allow');
+        jQuery('#opc-shipping_payment').attr('class','section completed');
+        jQuery('#checkout-step-billing').show();
+        jQuery('#checkout-step-shipping_payment').hide();
+    }
+</script>

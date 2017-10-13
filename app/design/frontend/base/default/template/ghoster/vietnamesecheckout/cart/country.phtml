@@ -1,0 +1,11 @@
+<?php /** @var $this GhoSter_VietnameseCheckout_Block_Country */ ?>
+
+<?php echo $this->__('Shipping cost to', $this->getShippingCostPageUrl()) ?>
+
+<?php echo $this->getCountryHtmlSelect($this->getSelectedCountryId(), 'country_id', 'vnshipping_country') ?>
+
+<script type="text/javascript">
+    $('vnshipping_country').observe('change', function() {
+        window.location = '<?php echo $this->getUrl('vnshipping/country/select') ?>?country_id=' + $F('vnshipping_country');
+    })
+</script>

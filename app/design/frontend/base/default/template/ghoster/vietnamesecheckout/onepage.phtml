@@ -1,0 +1,65 @@
+<div class="page-title">
+    <h1><?php echo $this->__('Checkout') ?></h1>
+</div>
+
+<div class="checkout-page">
+    <div class="checkout-header">
+        <div class="checkout-logo">
+            <a href="<?php echo $this->getUrl('') ?>">
+                <img src="<?php echo $this->getSkinUrl('images/checkout_logo.png') ?>" alt=""/>
+            </a>
+        </div>
+        <div class="checkout-steps-title">
+            <div class="item-title step-1 active">
+                <label><?php echo $this->__('Login/Register'); ?></label>
+                <span>1</span>
+            </div>
+            <div class="item-title step-2 <?php if(Mage::getSingleton('customer/session')->isLoggedIn()) echo 'active'?>">
+                <label><?php echo $this->__('Shipping Addresses'); ?></label>
+                <span>2</span>
+            </div>
+            <div class="item-title step-3">
+                <label><?php echo $this->__('Payment and Order'); ?></label>
+                <span>3</span>
+            </div>
+        </div>
+        <div class="hotline">
+            <span class="phone"><?php echo $this->__('1900 1570'); ?></span>
+            <span class="date-time"><?php echo $this->__('8-17h15, trừ CN'); ?></span>
+        </div>
+    </div>
+    <div class="checkout-content">
+        <script type="text/javascript" src="<?php echo $this->getJsUrl('varien/accordion.js') ?>"></script>
+        <ol class="opc opc-firststep-<?php echo $this->getActiveStep() ?>" id="checkoutSteps">
+            <?php $i=0; foreach($this->getSteps() as $_stepId => $_stepInfo): ?>
+                <?php if (!$this->getChild($_stepId) || !$this->getChild($_stepId)->isShow()): continue; endif; $i++ ?>
+                <li id="opc-<?php echo $_stepId ?>" class="section<?php echo !empty($_stepInfo['allow'])?' allow':'' ?><?php echo !empty($_stepInfo['complete'])?' saved':'' ?>">
+                    <div class="step-title" style="display: none">
+                        <span class="number"><?php echo $i ?></span>
+                        <h2><?php echo $_stepInfo['label'] ?></h2>
+                        <a href="#"><?php echo $this->__('Edit') ?></a>
+                    </div>
+                    <div id="checkout-step-<?php echo $_stepId ?>" class="step a-item" <?php if($i>1):?>style="display:none;"<?php endif;?>>
+                        <?php echo $this->getChildHtml($_stepId) ?>
+                    </div>
+                </li>
+            <?php endforeach ?>
+        </ol>
+        <script type="text/javascript">
+            //<![CDATA[
+            var accordion = new Accordion('checkoutSteps', '.step-title', true);
+            <?php if($this->getActiveStep()): ?>
+            accordion.openSection('opc-<?php echo $this->getActiveStep() ?>');
+            <?php endif ?>
+            var checkout = new Checkout(accordion,{
+                progress: '<?php echo $this->getUrl('checkout/onepage/progress') ?>',
+                review: '<?php echo $this->getUrl('checkout/onepage/review') ?>',
+                saveMethod: '<?php echo $this->getUrl('checkout/onepage/saveMethod') ?>',
+                failure: '<?php echo $this->getUrl('checkout/cart') ?>'}
+            );
+            //]]>
+
+        </script>
+    </div>
+</div>
+

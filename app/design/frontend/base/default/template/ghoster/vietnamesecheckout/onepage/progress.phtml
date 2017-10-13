@@ -1,0 +1,27 @@
+<div class="block block-progress opc-block-progress<?php if (!$this->isCustomerLoggedIn()/* && !$this->getCheckout()->getStepData('billing', 'is_show')*/): ?> opc-block-progress-step-login<?php endif; ?>">
+    <div class="block-title">
+        <strong><span><?php echo $this->__('Your Checkout Progress') ?></span></strong>
+    </div>
+    <div class="block-content">
+        <dl>
+            <?php if ($this->getCheckout()->getStepData('login', 'is_show')): ?>
+            <div id="login-progress-opcheckout">
+                <?php echo $this->getChildHtml('login.progress') ?>
+            </div>
+            <?php endif; ?>
+
+            <?php if ($this->getCheckout()->getStepData('billing', 'is_show')): ?>
+            <div id="billing-progress-opcheckout">
+                <?php echo $this->getChildHtml('billing.progress') ?>
+            </div>
+            <?php endif; ?>
+
+            <?php if ($this->getCheckout()->getStepData('shipping_payment', 'is_show')): ?>
+            <div id="shipping_payment-progress-opcheckout">
+                <?php echo $this->getChildHtml('shippingpayment.progress') ?>
+            </div>
+            <?php endif; ?>
+        </dl>
+    </div>
+</div>
+
