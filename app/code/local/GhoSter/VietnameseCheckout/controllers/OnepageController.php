@@ -8,6 +8,10 @@ class GhoSter_VietnameseCheckout_OnepageController extends Mage_Checkout_Onepage
      */
     public function saveBillingAction()
     {
+        if(!Mage::getStoreConfigFlag('vietnamesecheckout/checkout_settings/enabled')) {
+            return parent::saveBillingAction();
+        }
+
         if ($this->_expireAjax()) {
             return;
         }
@@ -126,6 +130,9 @@ class GhoSter_VietnameseCheckout_OnepageController extends Mage_Checkout_Onepage
      */
     public function progressAction()
     {
+        if(!Mage::getStoreConfigFlag('vietnamesecheckout/checkout_settings/enabled')) {
+            return parent::progressAction();
+        }
         // previous step should never be null. We always start with billing and go forward
         $prevStep = $this->getRequest()->getParam('prevStep', false);
 

@@ -9,6 +9,10 @@ class GhoSter_VietnameseCheckout_CustomerController extends Mage_Customer_Accoun
      */
     public function createPostAction()
     {
+        if(!Mage::getStoreConfigFlag('vietnamesecheckout/checkout_settings/enabled')) {
+            return parent::createPostAction();
+        }
+
         $message = '';
         $status = 0;
         $errUrl = $this->_getUrl('*/*/create', array('_secure' => true));
@@ -70,6 +74,11 @@ class GhoSter_VietnameseCheckout_CustomerController extends Mage_Customer_Accoun
      */
     protected function _addSessionError($errors)
     {
+
+        if(!Mage::getStoreConfigFlag('vietnamesecheckout/checkout_settings/enabled')) {
+            return parent::_addSessionError($errors);
+        }
+
         $session = $this->_getSession();
         $session->setCustomerFormData($this->getRequest()->getPost());
 

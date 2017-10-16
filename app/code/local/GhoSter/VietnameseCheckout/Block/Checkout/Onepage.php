@@ -1,5 +1,6 @@
 <?php
 class GhoSter_VietnameseCheckout_Block_Checkout_Onepage extends Mage_Checkout_Block_Onepage {
+
     /**
      * Get checkout steps codes
      *
@@ -7,7 +8,11 @@ class GhoSter_VietnameseCheckout_Block_Checkout_Onepage extends Mage_Checkout_Bl
      */
     protected function _getStepCodes()
     {
-        return array('login', 'billing',  'shipping_payment');
+        if(Mage::getStoreConfigFlag('vietnamesecheckout/checkout_settings/enabled')) {
+            return array('login', 'billing',  'shipping_payment');
+        } else {
+            return parent::_getStepCodes();
+        }
     }
 
 }
