@@ -44,6 +44,17 @@ Uninstallation
 --------------
 1. Remove all extension files from your Magento installation
 
+Screenshot
+--------------
+![Alt Screenshot-1](https://thinghost.info/wp-content/uploads/2017/10/Selection_087.png "thinghost.info")
+![Alt Screenshot-2](https://thinghost.info/wp-content/uploads/2017/10/Selection_088.png "thinghost.info")
+![Alt Screenshot-3](https://thinghost.info/wp-content/uploads/2017/10/Selection_090.png "thinghost.info")
+![Alt Screenshot-4](https://thinghost.info/wp-content/uploads/2017/10/Selection_091.png "thinghost.info")
+![Alt Screenshot-5](https://thinghost.info/wp-content/uploads/2017/10/Selection_092.png "thinghost.info")
+![Alt Screenshot-6](https://thinghost.info/wp-content/uploads/2017/10/Selection_093.png "thinghost.info")
+![Alt Screenshot-7](https://thinghost.info/wp-content/uploads/2017/10/Selection_094.png "thinghost.info")
+
+
 Licence
 -------
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
