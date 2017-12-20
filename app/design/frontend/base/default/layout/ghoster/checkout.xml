@@ -1,0 +1,124 @@
+<?xml version="1.0" ?>
+<layout version="0.1.0">
+    <!--Page handle -->
+    <default>
+        <reference name="head">
+            <action method="addItem" ifconfig="vietnamesecheckout/checkout_settings/enabled"><type>skin_css</type><script>ghoster/vietnamesecheckout/css/styles.css</script></action>
+        </reference>
+        <reference name="top.links">
+            <block type="checkout/links" name="checkout_cart_link">
+                <action method="addFavoriteLink" ifconfig="vietnamesecheckout/checkout_settings/enabled"/>
+                <action method="addMyAccountLink" ifconfig="vietnamesecheckout/checkout_settings/enabled"/>
+            </block>
+        </reference>
+    </default>
+
+    <checkout_onepage_index translate="label">
+        <label>One Page Checkout</label>
+        <!-- Mage_Checkout -->
+        <remove name="left" ifconfig="vietnamesecheckout/checkout_settings/enabled"/>
+        <reference name="root">
+            <action method="setTemplate" ifconfig="vietnamesecheckout/checkout_settings/enabled"><template>page/2columns-right.phtml</template></action>
+        </reference>
+        <reference name="head">
+            <action method="addJs" ifconfig="vietnamesecheckout/checkout_settings/enabled"><script>ghoster/vietnamese_checkout.js</script></action>
+        </reference>
+        <reference name="right">
+            <action method="unsetChildren" ifconfig="vietnamesecheckout/checkout_settings/enabled"/>
+        </reference>
+        <reference name="content">
+            <action method="unsetChildren" ifconfig="vietnamesecheckout/checkout_settings/enabled" />
+            <block type="checkout/onepage" name="ghoster.checkout.onepage" template="ghoster/vietnamesecheckout/onepage.phtml" ifconfig="vietnamesecheckout/checkout_settings/enabled">
+                <block type="checkout/onepage_login" name="checkout.onepage.login" as="login" template="checkout/onepage/login.phtml">
+                    <block type="page/html_wrapper" name="checkout.onepage.login.before" as="login_before" translate="label">
+                        <label>Login/Registration Before</label>
+                        <action method="setMayBeInvisible"><value>1</value></action>
+                    </block>
+                </block>
+
+                <block type="checkout/onepage_review_info" name="ghoster.cart.info" template="ghoster/vietnamesecheckout/onepage/review/info.phtml"/>
+
+                <block type="checkout/onepage_billing" name="checkout.onepage.billing" as="billing" template="checkout/onepage/billing.phtml"/>
+                <block type="checkout/onepage_shipping" name="checkout.onepage.shipping" as="shipping" template="checkout/onepage/shipping.phtml"/>
+                <block type="checkout/onepage_shipping_method" name="checkout.onepage.shipping_method" as="shipping_method" template="checkout/onepage/shipping_method.phtml">
+                    <block type="checkout/onepage_shipping_method_available" name="checkout.onepage.shipping_method.available" as="available" template="checkout/onepage/shipping_method/available.phtml"/>
+                    <block type="checkout/onepage_shipping_method_additional" name="checkout.onepage.shipping_method.additional" as="additional" template="checkout/onepage/shipping_method/additional.phtml"/>
+                </block>
+                <block type="checkout/onepage_payment" name="checkout.onepage.payment" as="payment" template="checkout/onepage/payment.phtml">
+                    <block type="checkout/onepage_payment_methods" name="checkout.payment.methods" as="methods" template="checkout/onepage/payment/info.phtml">
+                        <action method="setMethodFormTemplate"><method>purchaseorder</method><template>payment/form/purchaseorder.phtml</template></action>
+                    </block>
+                    <block type="core/template" name="checkout.onepage.payment.additional" as="additional" />
+                    <block type="core/template" name="checkout.onepage.payment.methods_additional" as="methods_additional" />
+                </block>
+                <block type="checkout/onepage_review" name="checkout.onepage.review" as="review" template="checkout/onepage/review.phtml"/>
+                <block type="ghoster_vietnamesecheckout/shipAndPay" name="shipping_payment" template="ghoster/vietnamesecheckout/onepage/shiping_payment_method.phtml"/>
+            </block>
+        </reference>
+
+        <reference name="checkout.onepage.login">
+            <action method="setTemplate" ifconfig="vietnamesecheckout/checkout_settings/enabled"><template>ghoster/vietnamesecheckout/onepage/account/login.phtml</template></action>
+            <block type="persistent/form_remember" name="persistent.remember.me" template="persistent/remember_me.phtml" />
+            <block type="core/template" name="persistent.remember.me.tooltip" template="persistent/remember_me_tooltip.phtml" />
+
+            <block type="checkout/onepage_review_info" name="ghoster.cart.info" template="ghoster/vietnamesecheckout/onepage/review/info.phtml" ifconfig="vietnamesecheckout/checkout_settings/enabled">
+                <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>ghoster/vietnamesecheckout/onepage/review/item.phtml</template></action>
+                <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>ghoster/vietnamesecheckout/review/item.phtml</template></action>
+                <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>ghoster/vietnamesecheckout/onepage/review/item.phtml</template></action>
+                <block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="checkout/onepage/review/totals.phtml"/>
+                <block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before" translate="label">
+                    <label>Items Before</label>
+                </block>
+                <block type="core/text_list" name="checkout.onepage.review.info.items.after" as="items_after" translate="label">
+                    <label>Items After</label>
+                </block>
+                <block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="checkout/onepage/agreements.phtml"/>
+            </block>
+        </reference>
+        <reference name="checkout.onepage.billing">
+            <action method="setTemplate" ifconfig="vietnamesecheckout/checkout_settings/enabled"><template>ghoster/vietnamesecheckout/onepage/account/billing.phtml</template></action>
+            <block type="persistent/form_remember" name="persistent.remember.me" template="persistent/remember_me.phtml" />
+            <block type="core/template" name="persistent.remember.me.tooltip" template="persistent/remember_me_tooltip.phtml" />
+        </reference>
+    </checkout_onepage_index>
+
+    <checkout_onepage_shipping_payment_method>
+        <!-- Mage_Checkout -->
+        <action method="unsetChildren" ifconfig="vietnamesecheckout/checkout_settings/enabled"/>
+
+        <block type="ghoster_vietnamesecheckout/shipAndPay" name="root" output="toHtml" template="ghoster/vietnamesecheckout/onepage/shiping_payment.phtml" ifconfig="vietnamesecheckout/checkout_settings/enabled">
+            <block type="checkout/onepage_shipping_method" name="checkout.onepage.shipping_method" as="shipping_method" template="ghoster/vietnamesecheckout/onepage/shipping_method/shipping_method.phtml">
+                <block type="checkout/onepage_shipping_method_available" name="checkout.onepage.shipping_method.available" as="available" template="ghoster/vietnamesecheckout/onepage/shipping_method/available.phtml"/>
+                <block type="checkout/onepage_shipping_method_additional" name="checkout.onepage.shipping_method.additional" as="additional" template="ghoster/vietnamesecheckout/onepage/shipping_method/additional.phtml"/>
+            </block>
+            <block type="checkout/onepage_payment" name="checkout.onepage.payment" as="payment" template="ghoster/vietnamesecheckout/onepage/payment.phtml">
+                <block type="checkout/onepage_payment_methods" name="checkout.payment.methods" as="methods" template="ghoster/vietnamesecheckout/onepage/payment/methods.phtml">
+                    <action method="setMethodFormTemplate">
+                        <method>purchaseorder</method>
+                        <template>payment/form/purchaseorder.phtml</template>
+                    </action>
+                </block>
+                <block type="core/template" name="checkout.onepage.payment.methods.scripts" as="scripts"/>
+                <block type="core/template" name="checkout.onepage.payment.additional" as="additional"/>
+                <block type="core/template" name="checkout.onepage.payment.methods_additional" as="methods_additional"/>
+            </block>
+            <block type="checkout/onepage_review_info" name="ghoster.cart.info" template="ghoster/vietnamesecheckout/onepage/review/info.phtml">
+                <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>ghoster/vietnamesecheckout/onepage/review/item.phtml</template></action>
+                <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>ghoster/vietnamesecheckout/onepage/review/item.phtml</template></action>
+                <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>ghoster/vietnamesecheckout/onepage/review/item.phtml</template></action>
+                <block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="checkout/onepage/review/totals.phtml"/>
+                <block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before" translate="label">
+                    <label>Items Before</label>
+                </block>
+                <block type="core/text_list" name="checkout.onepage.review.info.items.after" as="items_after" translate="label">
+                    <label>Items After</label>
+                </block>
+                <block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="checkout/onepage/agreements.phtml"/>
+            </block>
+            <block type="checkout/onepage_progress" name="address" template="ghoster/vietnamesecheckout/onepage/progress/billing.phtml">
+                <action method="setInfoTemplate"/>
+            </block>
+        </block>
+    </checkout_onepage_shipping_payment_method>
+
+</layout>
