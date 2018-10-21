@@ -6,8 +6,8 @@ Facts
 -----
 - version: 1.0.0
 - extension key: GhoSter_VietnameseCheckout
-- [extension on GitHub](https://github.com/tuyennn/Vietnamse_Checkout)
-- [direct download link](https://github.com/tuyennn/Vietnamse_Checkout/tarball/master)
+- [extension on GitHub](https://github.com/tuyennn/Vietnamese_Checkout)
+- [direct download link](https://github.com/tuyennn/Vietnamese_Checkout/tarball/master)
 
 Description
 -----------
