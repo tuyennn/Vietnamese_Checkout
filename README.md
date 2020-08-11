@@ -1,4 +1,4 @@
-# GhoSter Vietnamese Checkout - Magento 1
+# GhoSter Vietnamese Checkout - Magento 1(Deprecated, no longer maintained)
 ---
 Allows vietnamese customer checkout in magento site with 3 steps
 
